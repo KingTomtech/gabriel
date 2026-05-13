@@ -1,0 +1,591 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0053)needhelp.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Star Tech Phone Repairs Perth</title>
+    <meta name="description" content="Tech repair tips, guides, and advice from Perth&#39;s trusted phone and device repair specialists.">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./needhelp_files/css2" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --star-blue: #0084FF;
+            --star-blue-hover: #0073e6;
+            --bg-primary: #000000;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #0d0d0d;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-muted: #6e6e73;
+            --border-color: rgba(0, 132, 255, 0.2);
+            --nav-bg: rgba(0, 0, 0, 0.8);
+            --blue-glow: rgba(0, 132, 255, 0.15);
+            --card-bg: #1a1a1a;
+            --card-text: #f5f5f7;
+            --card-desc: #a1a1a6;
+            --card-icon: #0084FF;
+        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); -webkit-font-smoothing: antialiased; }
+        
+        .messenger-btn { position: fixed; bottom: 30px; right: 30px; width: 44px; height: 44px; border-radius: 50%; background: var(--star-blue); border: none; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px var(--blue-glow); transition: all 0.3s ease; text-decoration: none; }
+        .messenger-btn:hover { transform: scale(1.05); background: var(--star-blue-hover); }
+        .messenger-btn svg { width: 20px; height: 20px; fill: #FFFFFF; }
+
+        nav { position: fixed; top: 0; width: 100%; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { text-decoration: none; display: flex; align-items: center; } .logo img { width: 120px; height: auto; } @media (min-width: 768px) { .logo img { width: auto; height: 40px; } }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-primary); text-decoration: none; font-size: 0.85rem; font-weight: 400; opacity: 0.8; transition: opacity 0.3s; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-links a.book-now-btn { background: var(--star-blue); color: #FFFFFF; padding: 8px 18px; border-radius: 980px; font-weight: 500; opacity: 1; box-shadow: 0 4px 20px rgba(0, 132, 255, 0.4); }
+        .nav-links a.book-now-btn:hover { background: var(--star-blue-hover); }
+
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
+        .hamburger span { width: 20px; height: 2px; background: var(--text-primary); transition: all 0.3s ease; }
+        .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; background: var(--bg-primary); padding: 1rem 2rem; border-bottom: 1px solid var(--border-color); }
+        .mobile-menu.active { display: block; }
+        .mobile-menu a { display: block; color: var(--text-primary); text-decoration: none; padding: 0.8rem 0; font-size: 1rem; border-bottom: 1px solid var(--border-color); }
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--star-blue); }
+        .mobile-menu a.book-now-btn { background: var(--star-blue); color: #FFFFFF; text-align: center; margin-top: 1rem; border-radius: 980px; border: none; box-shadow: 0 4px 20px rgba(0, 132, 255, 0.4); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        .blog-header { padding: 120px 2rem 60px; text-align: center; background: var(--bg-tertiary); }
+        .blog-header h1 { font-family: 'Inter', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
+        .blog-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        .blog-container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+
+        .filter-bar { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-btn { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 980px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: var(--star-blue); border-color: var(--star-blue); }
+
+        .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+
+        .post-card { background: var(--bg-secondary); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+        .post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0, 132, 255, 0.15); }
+        .post-card-content { padding: 1.5rem; }
+        .post-category { display: inline-block; background: var(--star-blue); color: #fff; padding: 0.25rem 0.75rem; border-radius: 980px; font-size: 0.75rem; font-weight: 500; margin-bottom: 1rem; }
+        .post-card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; line-height: 1.4; color: var(--text-primary); }
+        .post-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+        .post-meta { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; }
+
+        footer { background: var(--bg-secondary); padding: 3rem 2rem; margin-top: 4rem; border-top: 1px solid var(--border-color); }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .footer-section h4 { color: var(--text-primary); margin-bottom: 1rem; font-weight: 600; font-size: 0.85rem; }
+        .footer-section p, .footer-section a { color: var(--text-secondary); line-height: 1.8; text-decoration: none; display: block; font-size: 0.85rem; }
+        .footer-section a:hover { color: var(--star-blue); }
+        .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+    
+        /* Premier polish */
+        :root {
+            --bg-primary: #050608;
+            --bg-secondary: #101319;
+            --bg-tertiary: #080b10;
+            --star-blue: #1493ff;
+            --star-blue-hover: #46adff;
+            --border-color: rgba(148, 190, 255, 0.18);
+            --nav-bg: rgba(5, 7, 11, 0.76);
+            --blue-glow: rgba(20, 147, 255, 0.26);
+            --card-bg: rgba(18, 22, 30, 0.86);
+            --card-text: #ffffff;
+            --card-desc: #b7c0cc;
+            --card-icon: #4db2ff;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at 16% 0%, rgba(20, 147, 255, 0.16), transparent 31rem),
+                radial-gradient(circle at 90% 12%, rgba(105, 190, 255, 0.10), transparent 34rem),
+                var(--bg-primary);
+            line-height: 1.5;
+        }
+
+        nav {
+            background: var(--nav-bg) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+        }
+
+        .nav-links a { letter-spacing: 0.01em; }
+        .nav-links a.active { color: #ffffff; }
+        .nav-links a:not(.book-now-btn):hover { color: #ffffff; }
+        .logo img { filter: drop-shadow(0 10px 24px rgba(20,147,255,0.20)); }
+
+        .page-header,
+        .blog-header {
+            background:
+                linear-gradient(180deg, rgba(20,147,255,0.12), rgba(20,147,255,0)),
+                var(--bg-secondary) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .hero-bg {
+            background:
+                radial-gradient(circle at 50% 40%, rgba(20,147,255,0.20), transparent 28rem),
+                linear-gradient(140deg, #030406 0%, #111722 52%, #030406 100%) !important;
+        }
+
+        .hero h1,
+        .page-header h1,
+        .blog-header h1,
+        .section-title {
+            letter-spacing: -0.025em !important;
+        }
+
+        .hero p,
+        .section-subtitle,
+        .page-header p,
+        .blog-header p { color: #b7c0cc !important; }
+
+        .btn,
+        .filter-btn,
+        .device-btn,
+        .model-pick,
+        .date-chip,
+        .time-slot,
+        .device-type-option,
+        .repair-option,
+        .close-pricing {
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease, color 0.22s ease !important;
+        }
+
+        .btn-primary,
+        .book-now-btn,
+        .mobile-menu a.book-now-btn {
+            background: linear-gradient(135deg, var(--star-blue), #51b8ff) !important;
+            box-shadow: 0 12px 30px rgba(20,147,255,0.28) !important;
+        }
+
+        .btn:hover,
+        .device-btn:hover,
+        .model-pick:hover,
+        .date-chip:hover,
+        .time-slot:hover,
+        .filter-btn:hover { transform: translateY(-2px); }
+
+        .feature-card,
+        .service-card,
+        .post-card,
+        .booking-form,
+        .pricing-details,
+        .pricing-cta,
+        .services-cta,
+        .price-note,
+        .device-btn,
+        .info-icon,
+        .map-overlay {
+            background: var(--card-bg) !important;
+            border: 1px solid rgba(255,255,255,0.09) !important;
+            border-radius: 8px !important;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+        }
+
+        .feature-card:hover,
+        .service-card:hover,
+        .post-card:hover,
+        .device-btn:hover {
+            border-color: rgba(20,147,255,0.42) !important;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.32), 0 0 0 1px rgba(20,147,255,0.10);
+        }
+
+        input,
+        select,
+        textarea,
+        .device-type-option,
+        .repair-option,
+        .model-pick,
+        .date-chip,
+        .time-slot,
+        .filter-btn {
+            background: rgba(5, 8, 13, 0.72) !important;
+            border-color: rgba(255,255,255,0.12) !important;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus,
+        .device-type-option.selected,
+        .repair-option.selected,
+        .model-pick.selected,
+        .date-chip.selected,
+        .time-slot.selected,
+        .filter-btn.active,
+        .device-btn.active {
+            border-color: var(--star-blue) !important;
+            box-shadow: 0 0 0 3px rgba(20,147,255,0.14) !important;
+        }
+
+        footer {
+            background: #070a0f !important;
+            border-top: 1px solid rgba(255,255,255,0.09) !important;
+        }
+
+        .messenger-btn {
+            box-shadow: 0 14px 34px rgba(20,147,255,0.34) !important;
+        }
+
+        @media (max-width: 640px) {
+            .nav-container { padding: 0 1.25rem !important; }
+            .page-header, .blog-header { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+            .booking-form { padding: 1.5rem !important; }
+            .hero h1 { white-space: normal !important; }
+        }
+    </style>
+</head>
+<body>
+    <a href="https://m.me/startechphonerepairs" target="_blank" class="messenger-btn" aria-label="Contact on Messenger">
+        <svg viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.19 5.44 3.14 7.17.16.14.26.35.27.57l.05 1.78c.02.62.63 1.03 1.19.8l1.99-.83c.17-.07.36-.09.55-.05.91.25 1.87.38 2.81.38 5.64 0 10-4.13 10-9.7S17.64 2 12 2zm6 7.46l-2.93 4.67c-.47.73-1.47.92-2.17.37l-2.34-1.76a.6.6 0 00-.72 0l-3.16 2.4c-.42.32-.97-.17-.68-.6l2.93-4.67c.47-.73 1.47-.92 2.17-.37l2.34 1.76a.6.6 0 00.72 0l3.16-2.4c.42-.32.97.17.68.6z"></path></svg>
+    </a>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo"><img src="./needhelp_files/logo.png" alt="Star Tech" height="32"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="prices.html">Prices</a></li>
+                <li><a href="needhelp.html" class="active">Need Help?</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="book.html" class="book-now-btn">Book Now</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="prices.html">Prices</a>
+        <a href="needhelp.html" class="active">Need Help?</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html" class="book-now-btn">Book Now</a>
+    </div>
+
+    <header class="blog-header">
+        <h1>Tech Tips &amp; Repair Guides</h1>
+        <p>Expert advice from Perth's trusted device repair specialists</p>
+    </header>
+
+    <main class="blog-container">
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Posts</button>
+            <button class="filter-btn" data-filter="iPhone">iPhone</button>
+            <button class="filter-btn" data-filter="Samsung">Samsung</button>
+            <button class="filter-btn" data-filter="iPad">iPad</button>
+            <button class="filter-btn" data-filter="Computer">Computer</button>
+            <button class="filter-btn" data-filter="Console">Console</button>
+        </div>
+
+        <div class="posts-grid" id="postsGrid">
+                <a href="post.html?id=iphone-screen-flickering-causes" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Why Is My iPhone Screen Flickering? Common Causes and Fixes</h2>
+                        <p>Discover the most common reasons your iPhone screen flickers and learn when you can fix it yourself versus when to seek professional repair.</p>
+                        <div class="post-meta">
+                            <span>5 Jan 2025</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=iphone-battery-replacement-signs" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>5 Signs Your iPhone Battery Needs Replacing</h2>
+                        <p>Learn the telltale signs that your iPhone battery is failing and why replacing it can make your phone feel brand new again.</p>
+                        <div class="post-meta">
+                            <span>4 Jan 2025</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=water-damaged-phone-what-to-do" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Dropped Your Phone in Water? Here's What to Do (and What Not to Do)</h2>
+                        <p>Quick action can save a water-damaged phone. Learn the right steps to take immediately and the common myths that can make things worse.</p>
+                        <div class="post-meta">
+                            <span>3 Jan 2025</span>
+                            <span>6 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=iphone-charging-port-not-working" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>iPhone Not Charging? It Might Just Need a Clean</h2>
+                        <p>Before paying for repairs, learn how pocket lint and debris could be the simple reason your iPhone won't charge properly.</p>
+                        <div class="post-meta">
+                            <span>2 Jan 2025</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=cracked-screen-keep-using" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Can You Keep Using a Phone with a Cracked Screen?</h2>
+                        <p>Your phone still works with that crack, but is it safe? Learn the risks of delaying screen repair and when it becomes urgent.</p>
+                        <div class="post-meta">
+                            <span>1 Jan 2025</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=samsung-vs-iphone-repair-costs" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Samsung</span>
+                        <h2>Samsung vs iPhone: Which Costs More to Repair?</h2>
+                        <p>Comparing repair costs between the two most popular smartphone brands and what factors affect the price you'll pay.</p>
+                        <div class="post-meta">
+                            <span>31 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=phone-overheating-causes" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Why Does My Phone Get So Hot? Causes and Solutions</h2>
+                        <p>Understanding why your phone overheats and when it's a sign of a problem that needs professional attention.</p>
+                        <div class="post-meta">
+                            <span>29 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=face-id-not-working-fixes" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Face ID Not Working? Here's How to Fix It</h2>
+                        <p>Troubleshooting the most common Face ID problems and understanding when hardware repair is necessary.</p>
+                        <div class="post-meta">
+                            <span>27 Dec 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=ipad-not-turning-on" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPad</span>
+                        <h2>iPad Won't Turn On? Try These Fixes Before Panicking</h2>
+                        <p>A dead iPad isn't always dead. Learn the common causes and solutions for an iPad that won't power on.</p>
+                        <div class="post-meta">
+                            <span>25 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=playstation-hdmi-port-issues" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Console</span>
+                        <h2>PS4/PS5 No Signal? HDMI Port Issues Explained</h2>
+                        <p>Understanding why gaming consoles lose video output and what can be done to fix HDMI-related problems.</p>
+                        <div class="post-meta">
+                            <span>23 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=iphone-speaker-quiet-muffled" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>iPhone Speaker Sounds Muffled or Quiet? Here's Why</h2>
+                        <p>Before replacing your speaker, try these cleaning tips that fix most iPhone audio problems.</p>
+                        <div class="post-meta">
+                            <span>21 Dec 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=macbook-not-charging-troubleshooting" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Computer</span>
+                        <h2>MacBook Not Charging? Troubleshooting Guide</h2>
+                        <p>From simple fixes to hardware issues, learn what causes MacBook charging problems and how to resolve them.</p>
+                        <div class="post-meta">
+                            <span>19 Dec 2024</span>
+                            <span>6 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=xbox-overheating-shutdown" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Console</span>
+                        <h2>Xbox Keeps Overheating and Shutting Down? Causes and Fixes</h2>
+                        <p>Understanding why your Xbox overheats and how proper maintenance can prevent automatic shutdowns.</p>
+                        <div class="post-meta">
+                            <span>17 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=samsung-screen-burn-in" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Samsung</span>
+                        <h2>What Is Screen Burn-In? Can It Be Fixed?</h2>
+                        <p>Understanding image retention and burn-in on Samsung and OLED phone screens - what causes it and what can be done.</p>
+                        <div class="post-meta">
+                            <span>15 Dec 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=phone-data-recovery-options" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Can Data Be Recovered from a Broken Phone?</h2>
+                        <p>Understanding your options for recovering photos, messages, and data from a phone that won't turn on.</p>
+                        <div class="post-meta">
+                            <span>13 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=phone-repair-vs-replace" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>Should You Repair or Replace Your Phone? A Practical Guide</h2>
+                        <p>When does it make sense to fix your phone versus putting that money toward a new one? A realistic breakdown.</p>
+                        <div class="post-meta">
+                            <span>11 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=nintendo-switch-joystick-drift" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Console</span>
+                        <h2>Nintendo Switch Joy-Con Drift: What Causes It and Can It Be Fixed?</h2>
+                        <p>Understanding the widespread Joy-Con drift issue, why it happens, and your options for fixing it.</p>
+                        <div class="post-meta">
+                            <span>9 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=iphone-true-tone-display" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">iPhone</span>
+                        <h2>What Is True Tone and Why Does It Disappear After Screen Repair?</h2>
+                        <p>Understanding iPhone's True Tone feature and how to ensure it's preserved when getting your screen replaced.</p>
+                        <div class="post-meta">
+                            <span>7 Dec 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=laptop-slow-ssd-upgrade" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Computer</span>
+                        <h2>Laptop Running Slow? An SSD Upgrade Can Make It Feel New</h2>
+                        <p>Why replacing your hard drive with an SSD is the single best upgrade for an aging laptop, and what to expect.</p>
+                        <div class="post-meta">
+                            <span>5 Dec 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+                </a>
+            
+                <a href="post.html?id=when-to-replace-phone-battery" class="post-card">
+                    <div class="post-card-content">
+                        <span class="post-category">Samsung</span>
+                        <h2>How Often Should You Replace Your Phone Battery?</h2>
+                        <p>Understanding battery lifespan, optimal replacement timing, and how to extend battery health as long as possible.</p>
+                        <div class="post-meta">
+                            <span>3 Dec 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Star Tech</h4>
+                <p>Perth's most trusted tech repair specialists. Quality repairs at affordable prices.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <a href="services.html">iPhone Repairs</a>
+                <a href="services.html">Samsung Repairs</a>
+                <a href="services.html">iPad &amp; Tablets</a>
+                <a href="services.html">Computers</a>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="prices.html">Pricing</a>
+                <a href="needhelp.html">Need Help?</a>
+                <a href="contact.html">Contact</a>
+                <a href="book.html">Book Repair</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Perth, Western Australia</p>
+                <p>Tue-Sat (Closed Mon &amp; Sun)</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Star Tech Phone Repairs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        function setupFilters() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const posts = document.querySelectorAll('.post-card');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    posts.forEach(post => {
+                        const category = post.querySelector('.post-category').textContent;
+                        post.style.display = btn.dataset.filter === 'all' || category === btn.dataset.filter ? 'block' : 'none';
+                    });
+                });
+            });
+        }
+
+        setupFilters();
+    </script>
+<script src="startech-tracking.js"></script>
+
+
+</body></html>
+
+
+
+

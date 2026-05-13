@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0053)services.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Star Tech Phone Repairs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./services_files/css2" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --star-blue: #0084FF; --star-blue-hover: #0073e6; --bg-primary: #000000; --bg-secondary: #1a1a1a; --text-primary: #f5f5f7; --text-secondary: #a1a1a6; --text-muted: #6e6e73; --border-color: rgba(0, 132, 255, 0.2); --nav-bg: rgba(0, 0, 0, 0.8); --card-bg: #1a1a1a; --card-text: #f5f5f7; --card-desc: #a1a1a6; --card-icon: #0084FF; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease; -webkit-font-smoothing: antialiased; }
+        .messenger-btn { position: fixed; bottom: 30px; right: 30px; width: 44px; height: 44px; border-radius: 50%; background: var(--star-blue); border: none; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .messenger-btn:hover { transform: scale(1.05); background: var(--star-blue-hover); }
+        .messenger-btn svg { width: 20px; height: 20px; fill: #FFFFFF; }
+        nav { position: fixed; top: 0; width: 100%; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { text-decoration: none; display: flex; align-items: center; } .logo img { width: 120px; height: auto; } @media (min-width: 768px) { .logo img { width: auto; height: 40px; } }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-primary); text-decoration: none; font-size: 0.85rem; opacity: 0.8; transition: opacity 0.3s; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-links a.book-now-btn { background: var(--star-blue); color: #FFFFFF; padding: 8px 18px; border-radius: 980px; font-weight: 500; opacity: 1; }
+        .nav-links a.book-now-btn:hover { background: var(--star-blue-hover); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 20px; height: 2px; background: var(--text-primary); transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); padding: 1.5rem 2rem; z-index: 999; }
+        .mobile-menu.active { display: block; }
+        .mobile-menu a { display: block; color: var(--text-primary); text-decoration: none; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); }
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--star-blue); }
+        .mobile-menu a.book-now-btn { background: var(--star-blue); color: #FFFFFF; text-align: center; margin-top: 1rem; border-radius: 980px; }
+        .page-header { margin-top: 48px; padding: 5rem 2rem 3rem; text-align: center; background: var(--bg-secondary); }
+        .page-header h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem; font-weight: 700; letter-spacing: -0.02em; }
+        .page-header p { font-size: 1.1rem; color: var(--text-secondary); }
+        .services-container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+        .service-card { background: var(--card-bg); padding: 2.5rem 2rem; border-radius: 20px; transition: all 0.3s ease; }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+        .service-icon { width: 48px; height: 48px; margin-bottom: 1.25rem; }
+        .service-icon svg { width: 100%; height: 100%; fill: var(--card-icon); }
+        .service-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 600; color: var(--card-text); }
+        .service-card p { line-height: 1.6; color: var(--card-desc); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .service-features { list-style: none; }
+        .service-features li { padding: 0.4rem 0; padding-left: 1.25rem; position: relative; color: var(--card-desc); font-size: 0.9rem; }
+        .service-features li::before { content: '>'; position: absolute; left: 0; color: var(--card-icon); }
+        .services-cta { text-align: center; padding: 5rem 2rem; background: var(--card-bg); margin-top: 4rem; border-radius: 20px; }
+        .services-cta h2 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 1rem; color: var(--card-text); font-weight: 700; }
+        .btn { padding: 12px 24px; font-size: 1rem; font-weight: 500; text-decoration: none; border-radius: 980px; display: inline-block; border: none; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: var(--star-blue); color: #FFFFFF; }
+        footer { background: var(--bg-secondary); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-color); }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h4 { color: var(--text-primary); margin-bottom: 1rem; font-weight: 600; font-size: 0.85rem; }
+        .footer-section p, .footer-section a { color: var(--text-secondary); line-height: 1.8; text-decoration: none; display: block; font-size: 0.85rem; }
+        .footer-section a:hover { color: var(--star-blue); }
+        .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.8rem; }
+        @media (max-width: 968px) { .nav-links { display: none; } .hamburger { display: flex; } .services-grid { grid-template-columns: 1fr; } }
+    
+        /* Premier polish */
+        :root {
+            --bg-primary: #050608;
+            --bg-secondary: #101319;
+            --bg-tertiary: #080b10;
+            --star-blue: #1493ff;
+            --star-blue-hover: #46adff;
+            --border-color: rgba(148, 190, 255, 0.18);
+            --nav-bg: rgba(5, 7, 11, 0.76);
+            --blue-glow: rgba(20, 147, 255, 0.26);
+            --card-bg: rgba(18, 22, 30, 0.86);
+            --card-text: #ffffff;
+            --card-desc: #b7c0cc;
+            --card-icon: #4db2ff;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at 16% 0%, rgba(20, 147, 255, 0.16), transparent 31rem),
+                radial-gradient(circle at 90% 12%, rgba(105, 190, 255, 0.10), transparent 34rem),
+                var(--bg-primary);
+            line-height: 1.5;
+        }
+
+        nav {
+            background: var(--nav-bg) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+        }
+
+        .nav-links a { letter-spacing: 0.01em; }
+        .nav-links a.active { color: #ffffff; }
+        .nav-links a:not(.book-now-btn):hover { color: #ffffff; }
+        .logo img { filter: drop-shadow(0 10px 24px rgba(20,147,255,0.20)); }
+
+        .page-header,
+        .blog-header {
+            background:
+                linear-gradient(180deg, rgba(20,147,255,0.12), rgba(20,147,255,0)),
+                var(--bg-secondary) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .hero-bg {
+            background:
+                radial-gradient(circle at 50% 40%, rgba(20,147,255,0.20), transparent 28rem),
+                linear-gradient(140deg, #030406 0%, #111722 52%, #030406 100%) !important;
+        }
+
+        .hero h1,
+        .page-header h1,
+        .blog-header h1,
+        .section-title {
+            letter-spacing: -0.025em !important;
+        }
+
+        .hero p,
+        .section-subtitle,
+        .page-header p,
+        .blog-header p { color: #b7c0cc !important; }
+
+        .btn,
+        .filter-btn,
+        .device-btn,
+        .model-pick,
+        .date-chip,
+        .time-slot,
+        .device-type-option,
+        .repair-option,
+        .close-pricing {
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease, color 0.22s ease !important;
+        }
+
+        .btn-primary,
+        .book-now-btn,
+        .mobile-menu a.book-now-btn {
+            background: linear-gradient(135deg, var(--star-blue), #51b8ff) !important;
+            box-shadow: 0 12px 30px rgba(20,147,255,0.28) !important;
+        }
+
+        .btn:hover,
+        .device-btn:hover,
+        .model-pick:hover,
+        .date-chip:hover,
+        .time-slot:hover,
+        .filter-btn:hover { transform: translateY(-2px); }
+
+        .feature-card,
+        .service-card,
+        .post-card,
+        .booking-form,
+        .pricing-details,
+        .pricing-cta,
+        .services-cta,
+        .price-note,
+        .device-btn,
+        .info-icon,
+        .map-overlay {
+            background: var(--card-bg) !important;
+            border: 1px solid rgba(255,255,255,0.09) !important;
+            border-radius: 8px !important;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+        }
+
+        .feature-card:hover,
+        .service-card:hover,
+        .post-card:hover,
+        .device-btn:hover {
+            border-color: rgba(20,147,255,0.42) !important;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.32), 0 0 0 1px rgba(20,147,255,0.10);
+        }
+
+        input,
+        select,
+        textarea,
+        .device-type-option,
+        .repair-option,
+        .model-pick,
+        .date-chip,
+        .time-slot,
+        .filter-btn {
+            background: rgba(5, 8, 13, 0.72) !important;
+            border-color: rgba(255,255,255,0.12) !important;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus,
+        .device-type-option.selected,
+        .repair-option.selected,
+        .model-pick.selected,
+        .date-chip.selected,
+        .time-slot.selected,
+        .filter-btn.active,
+        .device-btn.active {
+            border-color: var(--star-blue) !important;
+            box-shadow: 0 0 0 3px rgba(20,147,255,0.14) !important;
+        }
+
+        footer {
+            background: #070a0f !important;
+            border-top: 1px solid rgba(255,255,255,0.09) !important;
+        }
+
+        .messenger-btn {
+            box-shadow: 0 14px 34px rgba(20,147,255,0.34) !important;
+        }
+
+        @media (max-width: 640px) {
+            .nav-container { padding: 0 1.25rem !important; }
+            .page-header, .blog-header { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+            .booking-form { padding: 1.5rem !important; }
+            .hero h1 { white-space: normal !important; }
+        }
+    </style>
+</head>
+<body>
+    <nav><div class="nav-container"><a href="index.html" class="logo"><img src="./services_files/logo.png" alt="Star Tech" height="32"></a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html" class="active">Services</a></li><li><a href="prices.html">Prices</a></li><li><a href="needhelp.html">Need Help?</a></li><li><a href="contact.html">Contact</a></li><li><a href="book.html" class="book-now-btn">Book Now</a></li></ul><div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div></div></nav>
+    <div class="mobile-menu" id="mobileMenu"><a href="index.html">Home</a><a href="services.html" class="active">Services</a><a href="prices.html">Prices</a><a href="needhelp.html">Need Help?</a><a href="contact.html">Contact</a><a href="book.html" class="book-now-btn">Book Now</a></div>
+    <div class="page-header"><h1>Our Services</h1><p>Expert repairs for all your devices</p></div>
+    <div class="services-container">
+        <div class="services-grid">
+            <div class="service-card"><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"></path></svg></div><h3>iPhone Repairs</h3><p>Expert repairs for all iPhone models from iPhone 8 to the latest iPhone 16 series. We use high-quality parts and provide a 90-day warranty.</p><ul class="service-features"><li>Screen Replacement</li><li>Battery Replacement</li><li>Charging Port Repair</li><li>Back Glass Replacement</li><li>Camera Repair</li></ul></div>
+            <div class="service-card"><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"></path></svg></div><h3>Samsung Galaxy Repairs</h3><p>Professional repairs for Samsung Galaxy S series, Note series, and A series devices. Same-day service available for most repairs.</p><ul class="service-features"><li>Screen Replacement</li><li>Battery Replacement</li><li>Charging Port Repair</li><li>Back Glass Replacement</li><li>Water Damage Repair</li></ul></div>
+            <div class="service-card"><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M21 4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H3V6h18v12z"></path></svg></div><h3>iPad Repairs</h3><p>Complete repair services for all iPad models including iPad Pro, iPad Air, iPad Mini, and standard iPads.</p><ul class="service-features"><li>Screen Replacement</li><li>Battery Replacement</li><li>Charging Port Repair</li><li>Home Button Repair</li><li>Camera Repair</li></ul></div>
+            <div class="service-card"><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M21.58 16.09l-1.09-7.66C20.21 6.46 18.52 5 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19h.68c.67 0 1.31-.33 1.71-.88L9 16h6l1.67 2.12c.4.55 1.04.88 1.71.88h.68c1.55 0 2.74-1.37 2.52-2.91z"></path></svg></div><h3>Gaming Console Repairs</h3><p>Expert repairs for PlayStation, Xbox, and Nintendo Switch consoles. Get back to gaming faster with our quick turnaround times.</p><ul class="service-features"><li>HDMI Port Repair</li><li>Overheating / Fan Repair</li><li>Disc Drive Repair</li><li>Power Supply Replacement</li><li>Deep Cleaning Service</li></ul></div>
+            <div class="service-card"><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"></path></svg></div><h3>Computer Repairs</h3><p>MacBook, iMac, and Windows computer repairs. From hardware issues to software problems, we've got you covered.</p><ul class="service-features"><li>Screen Replacement</li><li>Battery Replacement</li><li>Keyboard Replacement</li><li>SSD/HDD Upgrades</li><li>Data Recovery</li></ul></div>
+            <div class="service-card"><div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg></div><h3>Diagnostic Services</h3><p>Not sure what's wrong with your device? Our free diagnostic service will identify the issue and provide you with a no-obligation quote.</p><ul class="service-features"><li>Free Device Assessment</li><li>Detailed Problem Report</li><li>Transparent Pricing</li><li>No Fix, No Fee Policy</li><li>Expert Recommendations</li></ul></div>
+        </div>
+        <div class="services-cta"><h2>Ready to get your device fixed?</h2><a href="book.html" class="btn btn-primary">Book a Repair</a></div>
+    </div>
+    <footer><div class="footer-content"><div class="footer-section"><h4>Star Tech Phone Repairs</h4><p>Perth's premier tech repair specialists.</p></div><div class="footer-section"><h4>Quick Links</h4><a href="services.html">Services</a><a href="prices.html">Price List</a><a href="book.html">Book Appointment</a><a href="contact.html">Contact Us</a></div><div class="footer-section"><h4>Contact</h4><p>33 Crimson Bvd<br>Forrestfield WA 6058</p><p>+61 420 994 662</p></div><div class="footer-section"><h4>Hours</h4><p>Monday: Closed</p><p>Tue-Fri: 7am - 7pm</p><p>Saturday: 7am - 5pm</p><p>Sunday: Closed</p></div></div><div class="footer-bottom"><p>Copyright &copy; 2026 Star Tech Phone Repairs. All rights reserved.</p></div></footer>
+    <a href="https://m.me/startechphonerepairs" target="_blank" class="messenger-btn" aria-label="Contact on Messenger"><svg viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.19 5.44 3.14 7.17.16.14.26.35.27.57l.05 1.78c.02.62.63 1.03 1.19.8l1.99-.83c.17-.07.36-.09.55-.05.91.25 1.87.38 2.81.38 5.64 0 10-4.13 10-9.7S17.64 2 12 2zm6 7.46l-2.93 4.67c-.47.73-1.47.92-2.17.37l-2.34-1.76a.6.6 0 00-.72 0l-3.16 2.4c-.42.32-.97-.17-.68-.6l2.93-4.67c.47-.73 1.47-.92 2.17-.37l2.34 1.76a.6.6 0 00.72 0l3.16-2.4c.42-.32.97.17.68.6z"></path></svg></a>
+    <script>function toggleMenu(){document.getElementById("mobileMenu").classList.toggle("active");document.querySelector(".hamburger").classList.toggle("active");}</script>
+<script src="startech-tracking.js"></script>
+
+
+</body></html>
+
+
+
