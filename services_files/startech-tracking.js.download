@@ -1,0 +1,206 @@
+/*  Star Tech Phone Repairs - Visitor Tracking
+    Creates one Trello card per user session with full journey data.
+    List ID: 6984d25893d04ffe1fbe837f
+    Same API key/token as TechSpec & Pepstar.
+*/
+(function() {
+  'use strict';
+
+  var CONFIG = {
+    trelloApiKey: '3ea0ef2b85773186d7ae30322ae1782d',
+    trelloToken: 'ATTAde902321af1ec6600e16a0587516fb0b68cff7d5ce58997aa165fc08ba35568217827FB6',
+    analyticsListId: '6984d25893d04ffe1fbe837f'
+  };
+
+  // Session & Visitor IDs
+  var SESSION_ID = sessionStorage.getItem('st_session') || (function() {
+    var s = 'sess_' + Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem('st_session', s);
+    return s;
+  })();
+
+  var VISITOR_ID = localStorage.getItem('st_visitor') || (function() {
+    var v = 'vis_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+    localStorage.setItem('st_visitor', v);
+    return v;
+  })();
+
+  var visitorCardId = sessionStorage.getItem('st_visitor_card') || null;
+  var pageStartTime = Date.now();
+  var maxScrollDepth = 0;
+
+  async function trackEvent(type, data) {
+    data = data || {};
+    try {
+      var cardName = 'VISITOR: ' + VISITOR_ID;
+
+      var event = {
+        type: type,
+        page: location.pathname,
+        title: document.title,
+        time: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      if (type === 'click' && data.text) event.text = data.text.substring(0, 50);
+      if (type === 'click' && data.href) event.href = data.href.substring(0, 100);
+      if (type === 'page_exit') {
+        event.timeOnPage = data.timeOnPage;
+        event.scrollDepth = data.scrollDepth;
+      }
+
+      // Find or create visitor card
+      if (!visitorCardId) {
+        var listUrl = 'https://api.trello.com/1/lists/' + CONFIG.analyticsListId + '/cards?key=' + CONFIG.trelloApiKey + '&token=' + CONFIG.trelloToken;
+        console.log('[StarTech Analytics] Fetching cards from list');
+        var res = await fetch(listUrl);
+        if (!res.ok) {
+          console.error('[StarTech Analytics] Failed to fetch list:', res.status);
+          return;
+        }
+
+        var cards = await res.json();
+        var existingCard = cards.find(function(c) { return c.name === cardName; });
+
+        if (existingCard) {
+          visitorCardId = existingCard.id;
+          sessionStorage.setItem('st_visitor_card', visitorCardId);
+          console.log('[StarTech Analytics] Found existing card:', visitorCardId);
+        }
+      }
+
+      // Build visitor data
+      var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+
+      var visitorData = {
+        visitorId: VISITOR_ID,
+        sessionId: SESSION_ID,
+        timezone: timezone,
+        language: navigator.language,
+        firstSeen: new Date().toISOString(),
+        lastSeen: new Date().toISOString(),
+        device: /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        browser: (function() {
+          var ua = navigator.userAgent;
+          if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) return 'Chrome';
+          if (ua.indexOf('Firefox') > -1) return 'Firefox';
+          if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) return 'Safari';
+          if (ua.indexOf('Edg') > -1) return 'Edge';
+          return 'Other';
+        })(),
+        screenRes: screen.width + 'x' + screen.height,
+        referrer: document.referrer || 'direct'
+      };
+
+      if (visitorCardId) {
+        // Update existing card - add comment with event
+        var commentUrl = 'https://api.trello.com/1/cards/' + visitorCardId + '/actions/comments?key=' + CONFIG.trelloApiKey + '&token=' + CONFIG.trelloToken;
+        var commentText = '[' + type.toUpperCase() + '] ' + event.page;
+        if (event.text) commentText += ' - ' + event.text;
+        if (event.href) commentText += ' → ' + event.href;
+        if (event.timeOnPage) commentText += ' | Time: ' + Math.round(event.timeOnPage / 1000) + 's';
+        if (event.scrollDepth) commentText += ' | Scroll: ' + event.scrollDepth + '%';
+        commentText += ' | ' + new Date().toLocaleTimeString();
+
+        await fetch(commentUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: commentText })
+        });
+
+        // Update card description with latest data
+        var updateUrl = 'https://api.trello.com/1/cards/' + visitorCardId + '?key=' + CONFIG.trelloApiKey + '&token=' + CONFIG.trelloToken;
+        var getRes = await fetch(updateUrl);
+        if (getRes.ok) {
+          var cardData = await getRes.json();
+          var desc = cardData.desc || '';
+
+          // Update lastSeen in description
+          desc = desc.replace(/\*\*Last Seen:\*\*.*/, '**Last Seen:** ' + new Date().toISOString());
+
+          await fetch(updateUrl, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ desc: desc })
+          });
+        }
+
+        console.log('[StarTech Analytics] Updated card with:', type);
+      } else {
+        // Create new card for this visitor
+        var description = '## Visitor Info\n';
+        description += '- **Visitor ID:** ' + visitorData.visitorId + '\n';
+        description += '- **Session ID:** ' + visitorData.sessionId + '\n';
+        description += '- **Device:** ' + visitorData.device + '\n';
+        description += '- **Browser:** ' + visitorData.browser + '\n';
+        description += '- **Screen:** ' + visitorData.screenRes + '\n';
+        description += '- **Language:** ' + visitorData.language + '\n';
+        description += '- **Timezone:** ' + visitorData.timezone + '\n';
+        description += '- **Referrer:** ' + visitorData.referrer + '\n';
+        description += '- **First Seen:** ' + visitorData.firstSeen + '\n';
+        description += '- **Last Seen:** ' + visitorData.lastSeen + '\n';
+        description += '\n## Entry Page\n';
+        description += event.page + ' (' + event.title + ')\n';
+        description += '\n---\n*Events logged as comments on this card*';
+
+        var createUrl = 'https://api.trello.com/1/cards?key=' + CONFIG.trelloApiKey + '&token=' + CONFIG.trelloToken;
+        var createRes = await fetch(createUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            idList: CONFIG.analyticsListId,
+            name: cardName,
+            desc: description,
+            pos: 'top'
+          })
+        });
+
+        if (createRes.ok) {
+          var newCard = await createRes.json();
+          visitorCardId = newCard.id;
+          sessionStorage.setItem('st_visitor_card', visitorCardId);
+          console.log('[StarTech Analytics] Created new card:', visitorCardId);
+        } else {
+          console.error('[StarTech Analytics] Failed to create card:', createRes.status);
+        }
+      }
+    } catch (err) {
+      console.error('[StarTech Analytics] Error:', err);
+    }
+  }
+
+  // Track page view on load
+  trackEvent('pageview');
+
+  // Track clicks on links and buttons
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('a, button');
+    if (!el) return;
+    trackEvent('click', {
+      text: (el.textContent || '').trim().substring(0, 50),
+      href: el.href || el.getAttribute('data-href') || ''
+    });
+  });
+
+  // Track scroll depth
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight > 0) {
+      var depth = Math.round((scrollTop / docHeight) * 100);
+      if (depth > maxScrollDepth) maxScrollDepth = depth;
+    }
+  });
+
+  // Track page exit
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Date.now() - pageStartTime;
+    if (navigator.sendBeacon && visitorCardId) {
+      var commentText = '[PAGE_EXIT] ' + location.pathname + ' | Time: ' + Math.round(timeOnPage / 1000) + 's | Scroll: ' + maxScrollDepth + '%';
+      var url = 'https://api.trello.com/1/cards/' + visitorCardId + '/actions/comments?key=' + CONFIG.trelloApiKey + '&token=' + CONFIG.trelloToken;
+      navigator.sendBeacon(url, JSON.stringify({ text: commentText }));
+    }
+  });
+
+  console.log('[StarTech Analytics] Tracking initialized - Visitor:', VISITOR_ID, 'Session:', SESSION_ID);
+})();
