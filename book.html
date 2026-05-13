@@ -4,287 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Repair | Star Tech Phone Repairs</title>
+    <meta name="description" content="Book your phone, tablet, or console repair online. Fast, reliable service in Perth. Same-day appointments available.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --star-blue: #0084FF; --star-blue-hover: #0073e6; --bg-primary: #000000; --bg-secondary: #1a1a1a; --text-primary: #f5f5f7; --text-secondary: #a1a1a6; --text-muted: #6e6e73; --border-color: rgba(0,132,255,0.2); --nav-bg: rgba(0,0,0,0.8); --blue-glow: rgba(0, 132, 255, 0.15); }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-primary); color: var(--text-primary); -webkit-font-smoothing: antialiased; }
-        
-        .messenger-btn { position: fixed; bottom: 30px; right: 30px; width: 44px; height: 44px; border-radius: 50%; background: var(--star-blue); border: none; cursor: pointer; z-index: 1001; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px var(--blue-glow); transition: all 0.3s ease; text-decoration: none; }
-        .messenger-btn:hover { transform: scale(1.05); background: var(--star-blue-hover); }
-        .messenger-btn svg { width: 20px; height: 20px; fill: #FFF; }
-        
-        nav { position: fixed; top: 0; width: 100%; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 48px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { text-decoration: none; display: flex; align-items: center; } .logo img { width: 120px; height: auto; } @media (min-width: 768px) { .logo img { width: auto; height: 40px; } }
-        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-primary); text-decoration: none; font-size: 0.85rem; opacity: 0.8; transition: opacity 0.3s; }
-        .nav-links a:hover, .nav-links a.active { opacity: 1; }
-        .nav-links a.book-now-btn { background: var(--star-blue); color: #FFF; padding: 8px 18px; border-radius: 980px; font-weight: 500; opacity: 1; box-shadow: 0 4px 20px rgba(0, 132, 255, 0.4); }
-        .nav-links a.book-now-btn:hover { background: var(--star-blue-hover); }
-        
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-        .hamburger span { width: 20px; height: 2px; background: var(--text-primary); }
-        .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; background: var(--bg-primary); backdrop-filter: blur(20px); padding: 1.5rem 2rem; z-index: 999; border-bottom: 1px solid var(--border-color); }
-        .mobile-menu.active { display: block; }
-        .mobile-menu a { display: block; color: var(--text-primary); padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); text-decoration: none; }
-        .mobile-menu a:hover, .mobile-menu a.active { color: var(--star-blue); }
-        .mobile-menu a.book-now-btn { background: var(--star-blue); color: #FFF; text-align: center; margin-top: 1rem; border-radius: 980px; border: none; box-shadow: 0 4px 20px rgba(0, 132, 255, 0.4); }
-        
-        @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
-        
-        .page-header { margin-top: 48px; padding: 5rem 2rem 3rem; text-align: center; background: var(--bg-secondary); }
-        .page-header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
-        .page-header p { color: var(--text-secondary); margin-top: 0.5rem; }
-        
-        .booking-container { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; }
-        .booking-form { background: var(--bg-secondary); padding: 2.5rem; border-radius: 20px; }
-        
-        .progress-indicator { display: flex; justify-content: space-between; margin-bottom: 2.5rem; position: relative; }
-        .progress-indicator::before { content: ''; position: absolute; top: 14px; left: 0; right: 0; height: 2px; background: var(--border-color); z-index: 1; }
-        .progress-step { text-align: center; position: relative; z-index: 2; flex: 1; }
-        .step-number { width: 30px; height: 30px; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; font-weight: 600; font-size: 0.8rem; color: var(--text-muted); transition: all 0.3s; }
-        .progress-step.active .step-number { border-color: var(--star-blue); color: var(--star-blue); }
-        .progress-step.completed .step-number { background: var(--star-blue); border-color: var(--star-blue); color: #FFF; }
-        .step-label { font-size: 0.75rem; color: var(--text-muted); }
-        .progress-step.active .step-label, .progress-step.completed .step-label { color: var(--text-primary); }
-        
-        .form-step { display: none; animation: fadeIn 0.4s; }
-        .form-step.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .step-title { font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--star-blue); font-weight: 600; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; color: var(--text-secondary); }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.875rem 1rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-family: inherit; font-size: 1rem; transition: all 0.3s; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--star-blue); }
-        .form-group textarea { min-height: 100px; resize: vertical; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        
-        .device-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-        .device-type-option { background: var(--bg-primary); border: 2px solid var(--border-color); padding: 1.25rem 0.75rem; cursor: pointer; text-align: center; border-radius: 12px; transition: all 0.3s; }
-        .device-type-option:hover { border-color: var(--star-blue); }
-        .device-type-option.selected { border-color: var(--star-blue); background: rgba(0,132,255,0.1); }
-        .device-type-option svg { width: 32px; height: 32px; fill: var(--star-blue); margin-bottom: 0.5rem; }
-        .device-type-option span { display: block; font-weight: 500; font-size: 0.8rem; color: var(--text-primary); }
-        
-        .repair-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-        .repair-option { background: var(--bg-primary); border: 2px solid var(--border-color); padding: 0.875rem 1rem; cursor: pointer; border-radius: 12px; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; }
-        .repair-option:hover { border-color: var(--star-blue); }
-        .repair-option.selected { border-color: var(--star-blue); background: rgba(0,132,255,0.1); }
-        .repair-option .checkmark { width: 20px; height: 20px; border: 2px solid var(--star-blue); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .repair-option.selected .checkmark { background: var(--star-blue); }
-        .repair-option.selected .checkmark::after { content: '\2713'; color: #FFF; font-size: 12px; }
-        .repair-option span { font-weight: 500; font-size: 0.9rem; color: var(--text-primary); }
-        
-        .form-buttons { display: flex; gap: 0.75rem; margin-top: 2rem; }
-        .btn { padding: 12px 24px; font-size: 1rem; font-weight: 500; border-radius: 980px; cursor: pointer; border: none; transition: all 0.3s; flex: 1; text-align: center; text-decoration: none; }
-        .btn-primary { background: var(--star-blue); color: #FFF; box-shadow: 0 4px 20px rgba(0, 132, 255, 0.4); }
-        .btn-primary:hover { background: var(--star-blue-hover); }
-        .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-color); }
-        .btn-secondary:hover { border-color: var(--star-blue); color: var(--star-blue); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        /* Model quick-pick buttons */
-        .model-quick-picks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 1.25rem; }
-        .model-pick { background: var(--bg-primary); border: 2px solid var(--border-color); padding: 0.75rem 1rem; cursor: pointer; border-radius: 12px; transition: all 0.3s; text-align: center; font-weight: 500; font-size: 0.85rem; color: var(--text-primary); }
-        .model-pick:hover { border-color: var(--star-blue); }
-        .model-pick.selected { border-color: var(--star-blue); background: rgba(0,132,255,0.1); }
-        .model-divider { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; color: var(--text-muted); font-size: 0.8rem; }
-        .model-divider::before, .model-divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
-
-        /* Date quick-pick chips */
-        .date-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .date-chip { background: var(--bg-primary); border: 2px solid var(--border-color); padding: 0.6rem 1rem; cursor: pointer; border-radius: 980px; transition: all 0.3s; font-weight: 500; font-size: 0.8rem; color: var(--text-primary); text-align: center; white-space: nowrap; }
-        .date-chip:hover { border-color: var(--star-blue); }
-        .date-chip.selected { border-color: var(--star-blue); background: rgba(0,132,255,0.1); }
-        .date-chip .chip-day { display: block; font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
-        .date-chip.selected .chip-day { color: var(--star-blue); }
-
-        /* Time slot buttons */
-        .time-slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-        .time-slot { background: var(--bg-primary); border: 2px solid var(--border-color); padding: 0.875rem 1rem; cursor: pointer; border-radius: 12px; transition: all 0.3s; text-align: center; }
-        .time-slot:hover { border-color: var(--star-blue); }
-        .time-slot.selected { border-color: var(--star-blue); background: rgba(0,132,255,0.1); }
-        .time-slot .slot-label { display: block; font-weight: 600; font-size: 0.9rem; color: var(--text-primary); }
-        .time-slot .slot-range { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
-        .time-slot.selected .slot-range { color: var(--star-blue); }
-        
-        footer { background: var(--bg-secondary); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-color); margin-top: 4rem; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-section h4 { margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-primary); }
-        .footer-section p, .footer-section a { color: var(--text-secondary); line-height: 1.8; font-size: 0.85rem; display: block; text-decoration: none; }
-        .footer-section a:hover { color: var(--star-blue); }
-        .footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.8rem; }
-        
-        @media (max-width: 600px) { 
-            .form-row { grid-template-columns: 1fr; } 
-            .device-type-grid { grid-template-columns: repeat(2, 1fr); } 
-            .repair-options { grid-template-columns: 1fr; } 
-            .form-buttons { flex-direction: column; } 
-            .booking-form { padding: 1.5rem; }
-            .model-quick-picks { grid-template-columns: repeat(2, 1fr); }
-            .time-slots { grid-template-columns: 1fr; }
-        }
-    
-        /* Premier polish */
-        :root {
-            --bg-primary: #050608;
-            --bg-secondary: #101319;
-            --bg-tertiary: #080b10;
-            --star-blue: #1493ff;
-            --star-blue-hover: #46adff;
-            --border-color: rgba(148, 190, 255, 0.18);
-            --nav-bg: rgba(5, 7, 11, 0.76);
-            --blue-glow: rgba(20, 147, 255, 0.26);
-            --card-bg: rgba(18, 22, 30, 0.86);
-            --card-text: #ffffff;
-            --card-desc: #b7c0cc;
-            --card-icon: #4db2ff;
-        }
-
-        html { scroll-behavior: smooth; }
-        body {
-            background:
-                radial-gradient(circle at 16% 0%, rgba(20, 147, 255, 0.16), transparent 31rem),
-                radial-gradient(circle at 90% 12%, rgba(105, 190, 255, 0.10), transparent 34rem),
-                var(--bg-primary);
-            line-height: 1.5;
-        }
-
-        nav {
-            background: var(--nav-bg) !important;
-            border-bottom: 1px solid rgba(255,255,255,0.10) !important;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.28);
-        }
-
-        .nav-links a { letter-spacing: 0.01em; }
-        .nav-links a.active { color: #ffffff; }
-        .nav-links a:not(.book-now-btn):hover { color: #ffffff; }
-        .logo img { filter: drop-shadow(0 10px 24px rgba(20,147,255,0.20)); }
-
-        .page-header,
-        .blog-header {
-            background:
-                linear-gradient(180deg, rgba(20,147,255,0.12), rgba(20,147,255,0)),
-                var(--bg-secondary) !important;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .hero-bg {
-            background:
-                radial-gradient(circle at 50% 40%, rgba(20,147,255,0.20), transparent 28rem),
-                linear-gradient(140deg, #030406 0%, #111722 52%, #030406 100%) !important;
-        }
-
-        .hero h1,
-        .page-header h1,
-        .blog-header h1,
-        .section-title {
-            letter-spacing: -0.025em !important;
-        }
-
-        .hero p,
-        .section-subtitle,
-        .page-header p,
-        .blog-header p { color: #b7c0cc !important; }
-
-        .btn,
-        .filter-btn,
-        .device-btn,
-        .model-pick,
-        .date-chip,
-        .time-slot,
-        .device-type-option,
-        .repair-option,
-        .close-pricing {
-            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease, color 0.22s ease !important;
-        }
-
-        .btn-primary,
-        .book-now-btn,
-        .mobile-menu a.book-now-btn {
-            background: linear-gradient(135deg, var(--star-blue), #51b8ff) !important;
-            box-shadow: 0 12px 30px rgba(20,147,255,0.28) !important;
-        }
-
-        .btn:hover,
-        .device-btn:hover,
-        .model-pick:hover,
-        .date-chip:hover,
-        .time-slot:hover,
-        .filter-btn:hover { transform: translateY(-2px); }
-
-        .feature-card,
-        .service-card,
-        .post-card,
-        .booking-form,
-        .pricing-details,
-        .pricing-cta,
-        .services-cta,
-        .price-note,
-        .device-btn,
-        .info-icon,
-        .map-overlay {
-            background: var(--card-bg) !important;
-            border: 1px solid rgba(255,255,255,0.09) !important;
-            border-radius: 8px !important;
-            box-shadow: 0 18px 50px rgba(0,0,0,0.22);
-        }
-
-        .feature-card:hover,
-        .service-card:hover,
-        .post-card:hover,
-        .device-btn:hover {
-            border-color: rgba(20,147,255,0.42) !important;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.32), 0 0 0 1px rgba(20,147,255,0.10);
-        }
-
-        input,
-        select,
-        textarea,
-        .device-type-option,
-        .repair-option,
-        .model-pick,
-        .date-chip,
-        .time-slot,
-        .filter-btn {
-            background: rgba(5, 8, 13, 0.72) !important;
-            border-color: rgba(255,255,255,0.12) !important;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus,
-        .device-type-option.selected,
-        .repair-option.selected,
-        .model-pick.selected,
-        .date-chip.selected,
-        .time-slot.selected,
-        .filter-btn.active,
-        .device-btn.active {
-            border-color: var(--star-blue) !important;
-            box-shadow: 0 0 0 3px rgba(20,147,255,0.14) !important;
-        }
-
-        footer {
-            background: #070a0f !important;
-            border-top: 1px solid rgba(255,255,255,0.09) !important;
-        }
-
-        .messenger-btn {
-            box-shadow: 0 14px 34px rgba(20,147,255,0.34) !important;
-        }
-
-        @media (max-width: 640px) {
-            .nav-container { padding: 0 1.25rem !important; }
-            .page-header, .blog-header { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
-            .booking-form { padding: 1.5rem !important; }
-            .hero h1 { white-space: normal !important; }
-        }
-    </style>
 </head>
 <body>
     <a href="https://m.me/startechphonerepairs" target="_blank" class="messenger-btn" aria-label="Contact on Messenger">
@@ -293,7 +17,7 @@
 
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo"><img src="logo.png" alt="Star Tech" height="32"></a>
+            <a href="index.html" class="logo"><img src="logo.png" alt="Star Tech Phone Repairs Logo" height="32"></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>
@@ -317,10 +41,10 @@
         <a href="book.html" class="book-now-btn active">Book Now</a>
     </div>
 
-    <div class="page-header">
+    <header class="page-header">
         <h1>Book Your Repair</h1>
         <p>Schedule your device repair in minutes</p>
-    </div>
+    </header>
 
     <div class="booking-container">
         <div class="booking-form">
@@ -377,8 +101,8 @@
                         <input type="text" id="device_model" name="device_model" placeholder="e.g. iPhone 15 Pro Max">
                     </div>
                     <div class="form-buttons">
-                        <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
-                        <button type="button" class="btn btn-primary" id="step2Next" disabled>Next</button>
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()" aria-label="Go back to previous step">Back</button>
+                        <button type="button" class="btn btn-primary" id="step2Next" disabled aria-label="Continue to next step">Next</button>
                     </div>
                 </div>
 
@@ -421,8 +145,8 @@
                         </div>
                     </div>
                     <div class="form-buttons">
-                        <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
-                        <button type="button" class="btn btn-primary" id="step3Next" disabled>Continue</button>
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()" aria-label="Go back to previous step">Back</button>
+                        <button type="button" class="btn btn-primary" id="step3Next" disabled aria-label="Continue to next step">Continue</button>
                     </div>
                 </div>
 
@@ -492,8 +216,8 @@
                         <textarea name="notes" id="notes" placeholder="Tell us more about your device issue..."></textarea>
                     </div>
                     <div class="form-buttons">
-                        <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
-                        <button type="submit" class="btn btn-primary">Submit Booking</button>
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()" aria-label="Go back to previous step">Back</button>
+                        <button type="submit" class="btn btn-primary" aria-label="Submit your booking request">Submit Booking</button>
                     </div>
                 </div>
             </form>
@@ -528,6 +252,7 @@
 
     <script>
         function toggleMenu() {
+            document.querySelector('.hamburger').classList.toggle('active');
             document.getElementById('mobileMenu').classList.toggle('active');
         }
 
@@ -817,7 +542,7 @@
                         '<p style="color:#a1a1a6;max-width:420px;margin:0 auto 2rem;line-height:1.6;">' +
                             'We\'ll be in touch shortly to confirm your appointment.' +
                         '</p>' +
-                        '<a href="index.html" class="btn btn-primary" style="display:inline-block;max-width:200px;">Back to Home</a>' +
+                        '<a href="index.html" class="btn btn-primary" aria-label="Back to homepage" style="display:inline-block;max-width:200px;">Back to Home</a>' +
                     '</div>';
             } catch (err) {
                 console.error('Booking error:', err);
